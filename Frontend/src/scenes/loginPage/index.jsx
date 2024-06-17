@@ -11,11 +11,11 @@ const LoginPage = () => {
     return (
         <div>
             <div className={`header ${isDarkTheme ? 'dark-mode' : 'light-mode'}`}>
-                <h1>SocialCircle</h1>
+                <h1>SocialPulse</h1>
             </div>
 
             <div className={`form-div ${isDarkTheme ? 'dark-mode' : 'light-mode'}`}>
-                <h2>Welcome to SocialCircle, the Social Media for Sociopaths!</h2>
+                <h2>SocialPulse: Your Heartbeat in the Social World!</h2>
                 <Form />
             </div>
         </div>
