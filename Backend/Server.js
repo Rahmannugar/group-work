@@ -122,6 +122,10 @@ app.use("/messages", messageRoutes);
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
 
+app.get("/", (req, res) =>
+  res.send(`<h1 style="text-align:center;">SOCIALPULSE API</h1>`)
+);
+
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
