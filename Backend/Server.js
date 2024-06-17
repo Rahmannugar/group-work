@@ -51,8 +51,6 @@ const io = new Server(server, {
   },
 });
 
-console.log(process.env.FRONTEND);
-
 io.on("connection", (socket) => {
   console.log(`New client with the id ${socket.id} connected`);
 
