@@ -1,0 +1,150 @@
+.chat-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  /* overflow: hidden; */
+}
+
+.friend-list-container {
+  flex: 1;
+  max-width: 300px;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+}
+
+.friend-heading {
+  padding: 10px;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.friend-list {
+  padding: 10px;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.friend-item:hover {
+  background-color: #f1f1f1;
+}
+
+.friend-item.selected {
+  background-color: #00353f;
+  color: #fff;
+}
+
+.friend-avatar {
+  margin-right: 10px;
+}
+
+.chat-box-container {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f1f1f1;
+}
+
+.chat-header {
+  padding: 10px;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #ddd;
+  background: #e1e1e1;
+}
+
+.messages {
+  overflow: auto;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+}
+
+.sent {
+  text-align: right;
+  background-color: #a3a3a3;
+}
+
+.received {
+  text-align: left;
+  background-color: #fff;
+}
+
+.message-content {
+  font-size: 1em;
+}
+
+.message-timestamp {
+  font-size: 0.8em;
+  color: gray;
+  /* position: absolute; */
+  bottom: 2px;
+  right: 10px;
+}
+
+.message-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.message-input button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #00353f;
+  color: #fff;
+  cursor: pointer;
+}
+
+.message-input button:hover {
+  background: #002d36;
+}
+
+@media (max-width: 1000px) {
+  .chat-container {
+    flex-direction: column;
+  }
+
+  .friend-list-container {
+    max-width: none;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .chat-box-container {
+    flex: none;
+    width: 100%; /* Adjust based on navbar height */
+    /* overflow-y: scroll; */
+  }
+}

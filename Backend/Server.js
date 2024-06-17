@@ -13,6 +13,7 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
 import commentRoutes from "./routes/comments.js";
+import messageRoutes from "./routes/messages.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
 import { createServer } from "http";
@@ -20,6 +21,7 @@ import { Server } from "socket.io";
 
 /*MOCK DATA */
 import User from "./models/User.js";
+import Message from "./models/Message.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
 
@@ -29,14 +31,24 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 
+app.use(express.json());
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+// app.use(morgan("common"));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+
 /* SOCKET.IO SETUP */
 const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
     origin:
-      process.env.NODE_ENV === "production" ? false : ["http://127.0.0.1:3000"],
+      process.env.NODE_ENV === "production" ? false : ["http://localhost:3000"],
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
@@ -58,24 +70,30 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("sendMsg", ({ userId, friendId, message }) => {
+  socket.on("sendMsg", async ({ userId, friendId, message }) => {
     const room = [userId, friendId].sort().join("-");
-    io.to(room).emit("receiveMsg", { userId, message });
+    const newMessage = new Message({ userId, friendId, message });
+    console.log(`user: ${userId}, friend: ${friendId}`);
+    // console.log(newMessage);
+
+    try {
+      await newMessage.save();
+      io.to(room).emit("receiveMsg", {
+        userId,
+        message,
+        timestamp: newMessage.timestamp,
+      });
+      // console.log(`Message saved and emitted to room ${room}`);
+    } catch (error) {
+      console.error(`Error saving message: ${error.message}`);
+      socket.emit("error", "An error occurred while sending the message.");
+    }
   });
 
   socket.on("disconnect", () => {
     console.log(`Client with the id ${socket.id} disconnected`);
   });
 });
-
-app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
-app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 /* FILE STORAGE */
 const storage = multer.diskStorage({
@@ -99,6 +117,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/comments", commentRoutes);
+app.use("/messages", messageRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
@@ -106,7 +125,7 @@ const PORT = process.env.PORT || 6001;
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
-    app.listen(PORT, () => console.log(`Server running on Port: ${PORT}`));
+    server.listen(PORT, () => console.log(`Server running on Port: ${PORT}`));
   } catch (error) {
     console.log(`${error} did not connect`);
   }
