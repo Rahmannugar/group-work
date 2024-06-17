@@ -19,7 +19,7 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [selectedFriend, setSelectedFriend] = useState(null);
-  const socket = io("http://localhost:6001"); // Ensure this URL is correct
+  const socket = io("process.env.REACT_APP_SOCIAL_CIRCLE_BACKEND");
 
   const baseUrl = process.env.REACT_APP_SOCIAL_CIRCLE_BACKEND;
 
