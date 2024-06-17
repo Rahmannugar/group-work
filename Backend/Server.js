@@ -45,12 +45,13 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin:
-      process.env.NODE_ENV === "production" ? false : ["http://localhost:3000"],
+    origin: [process.env.FRONTEND, "http://localhost:3000"],
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
+
+console.log(process.env.FRONTEND);
 
 io.on("connection", (socket) => {
   console.log(`New client with the id ${socket.id} connected`);
