@@ -20,19 +20,19 @@ const AdvertWidget = () => {
         width="100%"
         height="auto"
         alt="advert"
-        src="https://i.ibb.co/s38p4Rv/Screenshot-10.png"
+        src="https://www.unilorin.edu.ng/wp-content/uploads/2021/06/home2.jpg"
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
       <FlexBetween>
-        <Typography color={main}>My Portfolio</Typography>
+        <Typography color={main}>University of Ilorin</Typography>
         <Typography color={medium}>
-          <a href="http://manishk4514.netlify.app" target="_blank" rel="noopener noreferrer">
-            manishk4514.netlify.app
+          <a href="https://www.unilorin.edu.ng" target="_blank" rel="noopener noreferrer">
+            unilorin.edu.ng
           </a>
         </Typography>
       </FlexBetween>
       <Typography color={medium} m="0.5rem 0">
-      Check out my portfolio to learn more about me, explore my skills, and see the exciting projects that showcase my creative journey.
+        Due to the extension of the application period for Postgraduate programmes for the 2023/2024 Academic Session till 30th June. The qualifying examination earlier slated for the 8th of June 2024 is hereby postponed. A new date will be communicated later!!!
       </Typography>
     </WidgetWrapper>
   );

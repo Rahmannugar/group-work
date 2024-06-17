@@ -3,7 +3,7 @@ import HomePage from "scenes/homePage";
 import LoginPage from "scenes/loginPage";
 import ProfilePage from "scenes/profilePage";
 import SearchPage from "scenes/SearchPage";
-import NotificationPage from "scenes/notificationPage"
+import NotificationPage from "scenes/notificationPage";
 import HelpPage from "scenes/helpPage";
 import ChatPage from "scenes/chatPage";
 import PostPage from "scenes/postPage";
@@ -19,12 +19,15 @@ function App() {
   const isAuth = Boolean(useSelector((state) => state.token));
 
   return (
-    <div className="app"> 
+    <div className="app">
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
-            <Route path="/" element={isAuth ? <HomePage /> : <Navigate to="/auth"/> } />
+            <Route
+              path="/"
+              element={isAuth ? <HomePage /> : <Navigate to="/auth" />}
+            />
             <Route path="/auth" element={<LoginPage />} />
             <Route
               path="/home"
