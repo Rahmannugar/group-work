@@ -159,14 +159,14 @@ const Navbar = () => {
         <>
           <div className="brand-logo-img-div">
             <div className="social-logo-div" onClick={() => navigate("/home")}>
-              <img src="https://i.ibb.co/1r71bM7/Untitled-design-4.jpg" alt="logo" className="social-logo" />
+              <img src="https://i.ibb.co/LrZBjrF/Social-Pulse.png" alt="logo" className="social-logo" />
             </div>
 
             <div
               onClick={() => navigate("/home")}
               className="Social-Name"
             >
-              SocialCircle
+              SocialPulse
             </div>
           </div>
 
